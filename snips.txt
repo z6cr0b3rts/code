@@ -1,0 +1,415 @@
+##### ZACS CODE SNIPS ######
+
+**********SQL**********
+
+SELECT DISTINCT FROM -JOIN -ON WHERE GROUP BY HAVING ORDER BY ASC/DESC LIMIT;
+SELECT DISTINCT col1, col2 (NOT SELECT DISTINCT col1, DISTINCT col2)
+SELECT x, salary FROM eo WHERE salary > (SELECT AVG(salary) FROM ei WHERE ei.id = eo.id)
+SELECT t1.x, t1.y FROM Table1 t1 CROSS JOIN Table2 t2
+SELECT x, SUM(salary) FROM y GROUP BY x HAVING SUM(salary) BETWEEN 1-2 ORDER BY SUM(slary)
+SELECT x, b FROM y WHERE EXISTS (SELECT z FROM y WHERE inner.a=outer.b);
+NULL... IS NULL, IS NOT NULL.. SELECT ISNULL(column, 'replacement') AS column
+SELECT CASE WHEN x IS NOT NULL THEN x ELSE 'NA' END AS table FROM 
+SELECT CASE WHEN (SELECT COUNT(*) FROM x) > 1 THEN (SELECT xxxx) ELSE NULL END AS table
+WHERE SUBSTRING(x, LENGTH(x), LENGTH(x)) IN ('a', 'b')
+WHERE -> filter rows before or after grouping
+HAVING -> filter groups after grouping
+SELECT mid, COUNT(eid) reports FROM e GROUP BY mid HAVING reports >= 5;
+INSERT INTO table VALUES (1, 'test');, CREATE TABLE IF NOT EXISTS table (id INT, col VARCHAR(20));
+DELETE FROM Table WHERE column IN ('')
+= > < >= <= <> or != LIKE (WHERE name LIKE 'Pro%')
+ORDER BY LENGTH(CITY) DESC, CITY ASC
+SUBDATE(column, 1) #1 day prior
+MOD(column, 2) != 0 #odd, RIGHT(Name, 3) get last 3 chars
+UNION (dedups) UNION ALL (no dedups)
+Ex... find emps with salary higher than department average
+DUPS - find them by doing self join where t.duped = t1.duped AND t.notdupecol = t2.notdupecol
+UCASE(), LCASE(), MID(column, start, length) - substring, LEN(), ROUND(column, decimals), NOW(), FORMAT(123, "#-#-#") = 1-2-3 
+FIRST() - first column value, LAST() - last column value
+LEFT(column, 1) and RIGHT(column, 1) will grab 1 character from left or right
+MONTH(DATE), YEAR(DATE), DAY(DATE), TIMESTAMP
+
+**********PYTHON********** 
+
+if __name__ == '__main__':
+
+import pytest
+import time
+import sys
+import csv
+import pandas as pd
+from functools import reduce
+
+sys.getsizeof()
+pytest.main()
+def test_x():
+   assert 1 == 1
+
+sets cant have duplicates, tuples can
+tuples are immutable, sets and lists are mutable
+use sets to get rid of dupes
+>>> l = [1, 1, 3]
+>>> set(l)
+{1, 3}
+>>> tuple(l)
+(1, 1, 3)
+
+str.find('a') 
+str.capitalize() 
+str.replace('a', 'o', 1), 
+str.count('a')
+print(cat.find('ca'))
+print(dog.capitalize())
+cat = cat.replace('a', 'o', 1)
+sorted(l, key=lambda x: x[1])
+slicing letters[::2], [start:stop:step]
+s[0] - first letter
+s[-1] - last letter
+s[:] - full word
+s.reversed() - returns an iterator so cant print
+s.split() - seperates words in sentence
+''.join(l) - list to string
+''.join(str(v) for v in l) - list of ints to string - eager
+''.join(map(str, l) - lazy?
+>>> ''.join(map(str, l2))
+'123'
+for v in s:
+(map(lambda x: x if x in ['a', 'e', 'i', 'o', 'u'] else None, list(s)) # find vowels in a string
+if a lambda has an if it must have an else because it has to return something
+print(set(filter(None, map(lambda x: x if x in ['a', 'e', 'i', 'o', 'u'] else None, list(s.lower())))))
+sorted_strs = list(sorted(strs, key=len))
+
+sorted(words, key=len)
+sorted(words, key=str.lower) to handle 'tom', 'Harry'
+sorted(words, key=int) # to handle 4, '4'
+to sort on multiple values in list [[1, 3, 2], [2, 2, 1] can use a tuple:
+s = sorted(l, key = lambda x: (x[1], x[2]))
+def reverse_word(word):
+        return word[::-1]
+sorted(words, key=reverse_word)
+
+generator
+iterator
+iter(l)
+next(l)
+next(l)
+for remaining in l:
+	print(l)
+
+raw_input()
+input('Input: ')
+sys.argv[0]
+sys.argv[1]
+
+f strings:
+print(f"Row count is {row_count}")
+
+list()
+list(map(lambda n:n[0], a_list))) - new list of first letters 
+list(map(len, words))
+new_list = [i for i in old_list if expression]
+new_list = [i*2 for i in old_list]
+new_list = [i*2 for i in old_list if i%2==0]
+new_list = map(function, list)
+new_list = filter(function, list)
+l[-1] - last item
+l[::-1] - list reversed
+list.count('wordinlist')
+list.reverse()
+list.insert(v)
+list.remove(v)
+list.append(v)
+l.extend([v])
+list.sort() # changes object
+nl = sorted(l, key=len()) # returns new object
+list.sort(reverse=True)
+list.pop()
+sorted(l, reverse=True)
+sorted(l, key=lambda x: x[1])
+average of list ... sum(l)/len(l)
+a = [1, 2, 3, 4, 5]
+# printing the list using * operator separated 
+# by space 
+print(*a)
+# printing the list using * and sep operator
+print("printing lists separated by commas")
+ print(*a, sep = ", ")
+# print in new line
+print("printing lists in new line")
+print(*a, sep = "\n")
+a = [1, 2, 3, 4, 5]
+print(' '.join(map(str, a))) 
+print"in new line"
+print('\n'.join(map(str, a)))
+
+
+from Collections import deque
+dq = deque() 
+dq.append(x)
+dq.append(8)
+dq.append(y)
+dq.pop() -> y (LIFO)
+dq.popleft() -> x (FIFO)
+python stack - list [] with l.append(value) and l.pop which will act like LIFO stac
+
+
+dict()
+>>> list(d)
+['H', 'I']
+>>> d
+{'H': 1, 'I': 2}
+>>> list(d.keys())
+['H', 'I']
+>>> list(d.items())
+[('H', 1), ('I', 2)]
+>>> list(d.values())
+[1, 2]
+>>> print(*list(d.keys()))
+A B
+>>> print(*list(d.items()))
+('A', 1) ('B', 2)
+>>> print(*list(d.keys()))
+A B
+
+
+d = {'foo': 1, 'bar': 2, 'baz': 3}
+for k, v in dict.items():
+        print(k, v)
+>>> d = {1: 'one', 2: 'two'}
+>>> for i, v in enumerate(d):
+...     print(v)
+
+s = set(['python', 'r', 'sql'])
+s.add()
+s.remove()
+iterable
+operations
+s.union(s2)
+s.intersection(s2)
+s.difference(s2)
+s.symmetric_difference(s2)
+s.issubset(s2)
+sorted(s) returns new list that is sorted
+s.sort changes the original list to sorted
+
+map,reduce,filter (more efficient than loops, lazy, not eager)
+from functools import reduce
+n = reduce(lambda a, b: a + b, l)
+>>> l = [2, 3, 5, 7]
+>>> from functools import reduce
+>>> print(reduce(lambda a, b: a + b, l))
+17
+>>> def addit(a, b):
+...     return a + b 
+>>> print(reduce(addit, l))
+17
+>>> objects = [0, 1, [], 4, 5, "", None, 8]
+>>> list(filter(None, objects))
+[1, 4, 5, 8]
+
+import timeit
+>>> timeit.timeit("[v.replace('a', 'b', 1) for v in ['a', 'b', 'c']]", number=2000)
+0.0019286909999891577
+>>> timeit.timeit("list(map(lambda v:v.replace('a', 'b', 1), ['a', 'b', 'c']))", number=2000)
+0.0032170859999496315
+
+# # t1 = time.time_ns()
+# do something
+# t2 = time.time_ns()
+# print("time for a:  " + str(t2-t1))
+# t3 = time.time_ns()
+# do something a different way
+# t4 = time.time_ns()
+# print("time for b:  " + str(t4-t3))
+
+first class funcs
+map()
+filter()
+reduce()
+sum()
+len()
+any()
+all()
+min()
+max()
+max(pf, prices[i] - mn)
+
+import pandas as pd
+df = pd.read_csv("filename.csv")
+len(df)
+df.shape
+df.head()
+df.tail()
+df.info()
+df.describe()
+
+enumerate(l) or enumerate(l, 4) to start at specific item
+for i in range(len(l)):
+for i, v in enumerate(d):
+for v in d.items():
+
+if: elif: else:
+if x is None and y is None:
+if (n % 2) == 0: to find even
+
+class Xyz:
+    def __init__(self, items: list):
+        self.items = items
+class Sub(Xyz):
+
+class Dog:
+  def __init__(self, name, age)
+    this.name = name
+    this.age = age
+
+  def bark(self, noise='bark')
+    print(str(this.name) + " says: " + noise)
+
+class Bernese(Dog):
+  def bark(self, noise='woof')
+    super.bark(noise)
+
+SON
+JSON is basically a dict of a list of dicts, and on
+import json
+with open("data_file.json", "w") as write_file:
+    json.dump(data, write_file)
+with open("data_file.json", "r") as read_file:
+    data = json.load(read_file)
+import json
+data = {'people':[{'name': 'Scott', 'website': 'stackabuse.com', 'from': 'Nebraska'}]}
+print(json.dumps(data, indent=4))
+import json
+data = {
+    'employees' : [
+        {
+            'name' : 'John Doe',
+            'department' : 'Marketing',
+            'place' : 'Remote'
+        },
+        {
+            'name' : 'Jane Doe',
+            'department' : 'Software Engineering',
+            'place' : 'Remote'
+        },
+        {
+            'name' : 'Don Joe',
+            'department' : 'Software Engineering',
+            'place' : 'Office'
+        }
+    ]
+}
+json_string = json.dumps(data)
+print(json_string)
+# Directly from dictionary
+with open('json_data.json', 'w') as outfile:
+    json.dump(json_string, outfile)
+# Using a JSON string
+with open('json_data.json', 'w') as outfile:
+    outfile.write(json_string)
+import json
+with open('json_data.json') as json_file:
+    data = json.load(json_file)
+    print(data)
+python_dictionary = json.loads(json_string)
+print(python_dictionary)
+
+CSV
+import csv
+# list
+with open('employee_birthday.txt') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+                print(row)
+with open('employee_file.csv', mode='w') as employee_file:
+    employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    employee_writer.writerow(['John Smith', 'Accounting', 'November'])
+    employee_writer.writerow(['Erica Meyers', 'IT', 'March'])
+
+# dict
+import json
+python_dictionary = json.loads(json_string)
+print(python_dictionary)
+with open('employee_birthday.txt', mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+                print(row)
+with open('employee_file2.csv', mode='w') as csv_file:
+    fieldnames = ['emp_name', 'dept', 'birth_month']
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({'emp_name': 'John Smith', 'dept': 'Accounting', 'birth_month': 'November'})
+    writer.writerow({'emp_name': 'Erica Meyers', 'dept': 'IT', 'birth_month': 'March'})
+
+# Directly from dictionary
+with open('json_data.json', 'w') as outfile:
+    json.dump(json_string, outfile)
+# Using a JSON string
+with open('json_data.json', 'w') as outfile:
+    outfile.write(json_string)
+import json
+with open('json_data.json') as json_file:
+    data = json.load(json_file)
+    print(data)
+python_dictionary = json.loads(json_string)
+print(python_dictionary)
+****Pandas******:
+
+JSON
+patients = {
+         "Name":{"0":"John","1":"Nick","2":"Ali","3":"Joseph"},
+         "Gender":{"0":"Male","1":"Male","2":"Female","3":"Male"},
+         "Nationality":{"0":"UK","1":"French","2":"USA","3":"Brazil"},
+         "Age" :{"0":10,"1":25,"2":35,"3":29}
+}
+
+import pandas as pd
+patients_df = pd.read_json('E:/datasets/patients.json')
+patients_df.head()
+
+result = df.to_json(orient="index")
+parsed = json.loads(result)
+json.dumps(parsed, indent=4)  
+{
+    "row 1": {
+        "col 1": "a",
+        "col 2": "b"
+    },
+    "row 2": {
+        "col 1": "c",
+        "col 2": "d"
+    }
+}
+
+DataFrame.to_json(self, path_or_buf=None, orient=None, 
+date_format=None, double_precision=10, 
+force_ascii=True, 
+date_unit='ms', 
+default_handler=None, lines=False, 
+compression='infer', index=True)
+Parameters
+path_or_buf:  File path or object. If the path is not specified, the result is returned as a string. The parameter is optional.
+                                                                                               
+import pytest
+import timeit
+
+# solution
+def add_one(input):
+    s = ' '.join(map(str, input))
+    sr = s.replace(' ', '')
+    n = int(sr)
+    nn = n + 1
+    ns = str(nn)
+    nl = list(map(int, ns))
+    return nl
+
+# test cases
+def test_add_one_basic():
+    assert add_one([1, 2, 3]) == [1, 2, 4]
+def test_add_one_complex():
+    assert add_one([1, 2, 3, 4, 5, 6, 7, 8, 9]) == [1, 2, 3, 4, 5, 6, 7, 9, 0]
+pytest.main()
+if __name__ == "__main__":
+    print(timeit.timeit("add_one([1, 2, 3])", setup="from __main__ import add_one"))
+
+
