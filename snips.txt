@@ -54,6 +54,9 @@ use sets to get rid of dupes
 >>> tuple(l)
 (1, 1, 3)
 
+'h'.isupper() -> False
+'h'.islower() -> True
+'h'.upper() -> 'H'
 str.find('a') 
 str.capitalize() 
 str.replace('a', 'o', 1), 
@@ -269,8 +272,20 @@ class Bernese(Dog):
   def bark(self, noise='woof')
     super.bark(noise)
 
-SON
-JSON is basically a dict of a list of dicts, and on
+JSON
+print(nested_dictionary) -> ''
+print(json.dumps(nested_dictionary)) -> ""
+print(json.dumps(nested_dictionary, indent=4)) "", indented
+json.dump() -> serialize to file
+json.dumps() -> to str
+import json
+data = {"A": 1, "B": 2}
+with open("data_file.json", "w") as write_file:
+    json.dump(data, write_file)
+with open("data_file.json", "r") as read_file:
+    read_data = json.load(read_file)
+    print(read_data.items())
+
 import json
 with open("data_file.json", "w") as write_file:
     json.dump(data, write_file)
@@ -411,5 +426,35 @@ def test_add_one_complex():
 pytest.main()
 if __name__ == "__main__":
     print(timeit.timeit("add_one([1, 2, 3])", setup="from __main__ import add_one"))
+
+SQLite
+import sqlite3
+connection_obj = sqlite3.connect('db.db')
+cursor_obj = connection_obj.cursor()
+cursor_obj.execute('DROP TABLE IF EXISTS menu') 
+cursor_obj.execute(
+    ''' 
+        CREATE TABLE menu (
+        item VARCHAR(50) NOT NULL,
+        price INT NOT NULL,
+        topping VARCHAR(50)
+        ); 
+    '''
+)
+cursor_obj.execute(
+    ''' 
+    INSERT INTO menu(item, price, topping)
+        VALUES("Hamburger", 5, "Pickles") 
+    '''
+)
+cursor_obj.execute(
+    ''' 
+    SELECT * FROM menu
+    '''
+)
+rows = cursor_obj.fetchall()
+for v in rows:
+    print(v)
+connection_obj.close()
 
 
