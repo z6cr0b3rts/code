@@ -53,6 +53,10 @@ use sets to get rid of dupes
 {1, 3}
 >>> tuple(l)
 (1, 1, 3)
+sets do not guarantee order, if you need uniques maintained in order:
+user from collections import OrderedDict
+print("".join(OrderedDict.fromkeys((string[(i*k):(i+1)*k])).keys()))
+
 
 'h'.isupper() -> False
 'h'.islower() -> True
@@ -98,6 +102,20 @@ next(l)
 next(l)
 for remaining in l:
 	print(l)
+
+loop throug generator>>>>
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        return [self.discount(i, v, prices) for i, v in enumerate(prices)]
+        
+    def discount(self, i, v, prices):
+        sub_gen = (x for x in prices[i+1:])
+        discounted = v
+        for x in sub_gen:
+            if x <= v:
+                discounted = v - x
+                break
+        return discounted
 
 raw_input()
 input('Input: ')
@@ -157,6 +175,11 @@ python stack - list [] with l.append(value) and l.pop which will act like LIFO s
 
 
 dict()
+>>> glossary = {"BDFL": "Benevolent Dictator For Life"}
+>>> glossary["GIL"] = "Global Interpreter Lock"  # Add
+>>> glossary["BDFL"] = "Guido van Rossum"  # Update
+>>> del glossary["GIL"]  # Delete
+>>> glossary["BDFL"]  # Search
 >>> list(d)
 ['H', 'I']
 >>> d
@@ -272,6 +295,29 @@ class Bernese(Dog):
   def bark(self, noise='woof')
     super.bark(noise)
 
+files:
+with open("test.txt",'w',encoding = 'utf-8') as f:
+best way to close a file is by using the with statement. 
+This ensures that the file is closed when the block inside the with statement is exited.
+
+lazy file reader (to save memory when reading big files):
+with open('big.csv') as f:
+    for line in f:
+        process(line)
+
+reading multiple files:
+import os
+for filename in os.listdir("files"):
+   with open(os.path.join("files", filename), 'r') as f:
+       text = f.read()
+       print(text)
+
+multiple files: 
+import glob
+for filename in glob.glob("folder/*.csv"):
+    with open(filename) as f:
+        # do something with f
+
 JSON
 print(nested_dictionary) -> ''
 print(json.dumps(nested_dictionary)) -> ""
@@ -329,6 +375,18 @@ with open('json_data.json') as json_file:
 python_dictionary = json.loads(json_string)
 print(python_dictionary)
 
+multiple json object in single file:
+import json
+students_list = []
+with open('students.txt') as f:
+    for json_obj in f:
+        student_dict = json.loads(json_obj)
+        students_list.append(student_dict)
+
+print("Printing each JSON Decoded Object")
+for student in studentsList:
+    print(student["id"], student["name"], student["class"], student["email"])
+
 CSV
 import csv
 # list
@@ -368,6 +426,7 @@ with open('json_data.json') as json_file:
     print(data)
 python_dictionary = json.loads(json_string)
 print(python_dictionary)
+
 ****Pandas******:
 
 JSON
@@ -456,5 +515,7 @@ rows = cursor_obj.fetchall()
 for v in rows:
     print(v)
 connection_obj.close()
+
+
 
 
