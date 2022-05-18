@@ -73,6 +73,10 @@ slicing letters[::2], [start:stop:step]
 s[0] - first letter
 s[-1] - last letter
 s[:] - full word
+this will not throw error
+>>> s = '123'
+>>> s[13:15]
+'' 
 s.reversed() - returns an iterator so cant print
 s.split() - seperates words in sentence
 ''.join(l) - list to string
@@ -196,6 +200,10 @@ A B
 ('A', 1) ('B', 2)
 >>> print(*list(d.keys()))
 A B
+dict.setdefault(key, 0) would set the value dict[key] to 0
+example:
+def update_word_count(dict, key):
+    dict[key] = dict.setdefault(key, 0) + 1
 
 
 d = {'foo': 1, 'bar': 2, 'baz': 3}
@@ -295,6 +303,19 @@ class Bernese(Dog):
   def bark(self, noise='woof')
     super.bark(noise)
 
+
+abstract classes with required methods 
+from abc import ABC, abstractmethod
+
+class Employee(ABC):
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    @abstractmethod
+    def calculate_payroll(self):
+        pass
+
 files:
 with open("test.txt",'w',encoding = 'utf-8') as f:
 best way to close a file is by using the with statement. 
@@ -303,7 +324,7 @@ This ensures that the file is closed when the block inside the with statement is
 lazy file reader (to save memory when reading big files):
 with open('big.csv') as f:
     for line in f:
-        process(line)
+        yield line
 
 reading multiple files:
 import os
